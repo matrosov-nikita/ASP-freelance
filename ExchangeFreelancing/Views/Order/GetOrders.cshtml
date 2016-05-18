@@ -1,0 +1,20 @@
+﻿@model  PagedList.IPagedList<Order>
+@using ExchangeFreelancing.Domain.Entities;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Заказы";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<h4>Новые задания</h4>
+@foreach (Order order in Model)
+{
+    <div class="col-md-12" style="border:none">
+        @{ Html.RenderPartial("_Order", order);}
+    </div>
+    <hr />
+}
+@{ var second_param = (ViewBag.Category == true && Model.FirstOrDefault()!=null) ? (Model.FirstOrDefault().Category) : null; }
+@Html.PagedListPager(Model, page => Url.Action("GetOrders", new { page, category = second_param }))
+
+  

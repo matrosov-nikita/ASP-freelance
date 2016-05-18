@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExchangeFreelancing</name>
+    </assembly>
+    <members>
+        <member name="M:ExchangeFreelancing.Controllers.AccountController.Login(System.String)">
+            <summary>
+            Отображеия формы для авторизации
+            </summary>
+            <param name="returnUrl">адрес перенаправления после авторизации </param>
+            <returns>форма авторизации</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AccountController.Login(ExchangeFreelancing.Models.LoginModelView,System.String)">
+            <summary>
+            метод авторизации пользователя
+            </summary>
+            <param name="model"> данные из формы авторизации</param>
+            <param name="returnUrl">куда перенаправить</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AccountController.Logout">
+            <summary>
+            метод выхода из система(разлогиниться)
+            </summary>
+            <returns>перенаправдение на форму автризации</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AccountController.Register">
+            <summary>
+            отображение формы регистрации
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AccountController.Register(ExchangeFreelancing.Models.RegisterModelView)">
+            <summary>
+            метод для регистрации нового пользваотеля
+            </summary>
+            <param name="model"> данные из формы регистрации</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AdminController.Index">
+            <summary>
+            отображение главной страницы панели администратора
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AdminController.Delete(System.Int32)">
+            <summary>
+            метод для удаления пользоватея
+            </summary>
+            <param name="orderId">айдишник пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AdminController._GetOrders">
+            <summary>
+            метод получения всех заказов в системе
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AdminController._GetUsers">
+            <summary>
+            метод для получения всех пользваотелей в системе
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AdminController._GetClaims">
+            <summary>
+            отображение страницы арбитража
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AdminController.GetArbitrationInfo(System.Int32)">
+            <summary>
+            детальная информация о заказе, переписки, файлах..
+            </summary>
+            <param name="order"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.AdminController.ConfirmWork(System.Int32,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            метод для подтверждения работы администартором
+            </summary>
+            <param name="order_id">айди заказа</param>
+            <param name="message">сообщение от админа</param>
+            <param name="Executer">исполнитель</param>
+            <param name="Mark">оценка от админнистратора</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.HomeController.List">
+            <summary>
+            отображение главной страницы
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.MenuController._Nav(System.String)">
+            <summary>
+            отображение категорий в левой части экрана
+            </summary>
+            <param name="category"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.MessageController.AddMessage(System.Int32,System.String,System.String)">
+            <summary>
+            метод для отправки сообщения
+            </summary>
+            <param name="_order">айди заказа</param>
+            <param name="user">пользователь</param>
+            <param name="Message">сообщение</param>
+            <returns>html-представления сообщения</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.MessageController.GetMessages(System.Int32)">
+            <summary>
+            получения всех сообщений по данному заказу
+            </summary>
+            <param name="order">айди заказа</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.GiveOrder">
+            <summary>
+            Метод отображает форму для размещения заказа
+            </summary>
+            <returns>html-форма размещеия заказа</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.SaveFile(System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase},System.String,System.String)">
+            <summary>
+            Сохранение коллеции файлов
+            </summary>
+            <param name="collection"> коллекция файлов</param>
+            <param name="directory">директория</param>
+            <param name="order_id">Id заказчика</param>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.GiveOrder(ExchangeFreelancing.Domain.Entities.Order,System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase})">
+            <summary>
+            метод работает по post-запросу, добавляя в БД новый заказ
+            </summary>
+            <param name="_order"> новый заказ</param>
+            <param name="collection">коллеция файлов заказа</param>
+            <returns>html-уведомления о добавлении</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.Download(System.String,System.Int32,System.String)">
+            <summary>
+            Метод для скачиваия файлов
+            </summary>
+            <param name="fileName">имя файла</param>
+            <param name="order">номер заказа</param>
+            <param name="directory">имя директории</param>
+            <returns>файл</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.GetOrders(System.String,System.Nullable{System.Int32})">
+            <summary>
+            получение заказов, размещенных в системе
+            </summary>
+            <param name="category">категория заказа</param>
+            <param name="page">номер страницы</param>
+            <returns> коллеция заказов</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController._GetOrdersInWork(System.String,System.String)">
+            <summary>
+            Получить заказ, которые находятся в работе
+            </summary>
+            <param name="Role">роль заказчик/ислнитель</param>
+            <param name="State">состояние заказа</param>
+            <returns>возвращает представление с искомыми заказами</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:ExchangeFreelancing.Controllers.OrderController.SendWorkForCheck(System.Int32)" -->
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.SendWorkForCheck(ExchangeFreelancing.Models.WorkForCheck,System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase},System.Int32)">
+            <summary>
+            Отправка выполненой работы на проверку
+            </summary>
+            <param name="work">работа</param>
+            <param name="collection">коллекция файлов</param>
+            <param name="num_order">номер заказа</param>
+            <returns>уведомлении о статусе отправки</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.ViewCompletedOrder(System.Int32)">
+            <summary>
+            Просмотр выполненных заказов
+            </summary>
+            <param name="id">Id заказа</param>
+            <returns>html-представления с выполненными заказами</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.ConfirmWork(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            метод для подтверждения работы
+            </summary>
+            <param name="order_id">номер заказа</param>
+            <param name="message">сообщение от заказчика</param>
+            <param name="Executer">исполнитель</param>
+            <param name="Mark">оценка</param>
+            <returns>уведомлении о подтверждении</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.OrderController.RefuseWork(System.Int32,System.String)">
+            <summary>
+            Метод для отправки работы в арбитраж
+            </summary>
+            <param name="order_id">номер заказа</param>
+            <param name="message">сообщение</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.ProfileController.SaveFile(System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase},System.String,System.String,System.String)">
+            <summary>
+            доавбление файлов в портфолио
+            </summary>
+            <param name="collection">коллекция файлов</param>
+            <param name="directory">имя директории</param>
+            <param name="custom_id">айли заказчика</param>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.ProfileController.Download(System.String)">
+            <summary>
+            скачивание работы с портфолио
+            </summary>
+            <param name="folder">путь к папке</param>
+            <returns>zip-архив с файлами</returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.ProfileController._UserInfo(System.String)">
+            <summary>
+            отображение информации о пользователе
+            </summary>
+            <param name="user_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.ProfileController._Portfolio(System.String)">
+            <summary>
+            отображеие работ из портфолио
+            </summary>
+            <param name="user_id">айди пользвателя</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.ProfileController._Portfolio(System.Collections.Generic.IEnumerable{System.Web.HttpPostedFileBase},System.String)">
+            <summary>
+            сохрание работ в портфолио
+            </summary>
+            <param name="collection">коллекция файлов</param>
+            <param name="name">имя работы</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.ProfileController._UserInfo(ExchangeFreelancing.Models.ApplicationUser)">
+            <summary>
+            метод для редактирования профиля пользователя
+            </summary>
+            <param name="user">юзер</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.ProfileController._RatingInfo(System.String)">
+            <summary>
+            получение комментариев о пользователе
+            </summary>
+            <param name="user_id">айди пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.RequestController.AddRequest(System.Int32)">
+            <summary>
+            добавление заявки 
+            </summary>
+            <param name="order_id">номер заказа</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.RequestController.ConfirmRequest(System.Int32,System.String)">
+            <summary>
+            мето для подтверждения заявки
+            </summary>
+            <param name="order_id">номер заказа</param>
+            <param name="ex_id">айди исполнителя</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.RequestController.RefuseRequest(System.Int32,System.String)">
+            <summary>
+            метод отклонения заявки
+            </summary>
+            <param name="order_id">айди заказ</param>
+            <param name="ex_id">айди исполнителя</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.RequestController.GetExecuterRequest(System.String)">
+            <summary>
+            получить коллекцию ключ-заявка/значение - коллекция исполнителей, подавших заявки
+            </summary>
+            <param name="customer_name">имя заказчика</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.RequestController.GetOwnRequests(System.String)">
+            <summary>
+            метод для получения списка собственных заявок
+            </summary>
+            <param name="name">имя пользователя</param>
+            <returns></returns>
+        </member>
+        <member name="M:ExchangeFreelancing.Controllers.RequestController.GetInfoAboutExecuter(System.String)">
+            <summary>
+            получить информацию о пользователе
+            </summary>
+            <param name="user_id">айди пользователя</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,18 @@
+﻿@using ExchangeFreelancing.Domain.Entities
+@using System
+@model IEnumerable<Order>
+
+@foreach (Order item in @Model)
+{     <div class="message_box">
+        @Html.ActionLink(item.Header,"ViewCompletedOrder", "Order",new { id = item.Id }, new { style = "font-size: smaller; padding:10px; font-weight:bold; margin-bottom:10px;" })
+    </div>
+
+    if (ViewBag.Current_role == "Customer")
+    {
+        <div class="btn-group-justified" style="margin-bottom:20px">
+            @Html.ActionLink("Подтвердить", "ConfirmWork", "Order", new { @class = "btn btn-success" })
+            @Html.ActionLink("Арбитраж", "RefuseWork", "Order", new { @class = "btn btn-danger" })
+        </div>
+    }
+
+}

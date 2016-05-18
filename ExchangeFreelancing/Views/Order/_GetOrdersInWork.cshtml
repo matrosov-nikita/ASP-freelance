@@ -1,0 +1,27 @@
+﻿@using ExchangeFreelancing.Domain.Entities
+@using System
+@model IEnumerable<Order>
+
+
+@foreach (Order item in @Model)
+{     <div class="message_box">
+          <a style="font-size: smaller; padding:10px; font-weight:bold">
+              @item.Header
+              <span class="convers glyphicon glyphicon-envelope" data-toggle="tooltip" title="" style="font-size:15px; margin-left:10px; color:red; cursor:pointer" onclick="ShowChat('@Url.Action("GetMessages","Message")', this)"></span>
+          </a>
+          @{Html.RenderPartial("_Chat", item.Id);}
+    </div>
+    var ts = item.ExecutingTime.Subtract(DateTime.Now);
+
+    <div style="color:red;margin-top:0;">Осталось: @(string.Format("{0:%d} дн. {0:%h} ч. {0:%m} м.", ts)) </div>
+
+    if (ViewBag.Current_role == "Executer")
+    {
+        @Html.ActionLink("Сдать на проверку", "SendWorkForCheck", "Order",new {num_order=item.Id}, new { style = "margin-bottom:20px", type = "button", @class = "btn btn-primary" });
+    }
+}
+
+
+
+
+

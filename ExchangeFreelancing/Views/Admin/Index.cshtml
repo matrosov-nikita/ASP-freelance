@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ExchangeFreelancing.Domain.Entities.Order>
+
+@{
+    ViewBag.Title = "Страница администратора";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    window.onload = function my() {
+        $("#order").click();
+    }
+    function FillOrders() {
+        $('#content').load('@Url.Action("_GetOrders", "Admin")');
+    }
+    function FillUsers() {
+        $('#content').load('@Url.Action("_GetUsers", "Admin")');
+    }
+    function FillClaims() {
+        $('#content').load('@Url.Action("_GetClaims", "Admin")');
+    }
+    
+</script>
+<h3> Страница администратора </h3>
+<ul class="nav nav-tabs nav-justified " role="tablist">
+    <li class="active"><a id="order" href="#" onclick="FillOrders()">Заказы</a></li>
+    <li><a href="#" onclick="FillUsers()">Пользователи</a></li>
+    <li> <a href="#" onclick="FillClaims()"> Арбитраж </a></li>
+</ul>
+<div id="content">
+
+</div>

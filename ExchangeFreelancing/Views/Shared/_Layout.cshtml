@@ -1,0 +1,128 @@
+﻿@using  Microsoft.AspNet.Identity.EntityFramework;
+@using ExchangeFreelancing.Models
+@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/menu_links.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/buttons.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/order.css" rel="stylesheet" />
+    <link href="~/Content/message.css" rel="stylesheet" />
+    <script src="~/Scripts/Functions.js"></script>
+
+
+    <title>@ViewBag.Title</title>
+
+    <script>
+        function FillRequests() {
+            $('#requests').load('@Url.Action("GetExecuterRequest","Request", new { customer_name = User.Identity.Name })');
+        }
+        
+        function GetOwnRequests() {
+            $('#requests').load('@Url.Action("GetOwnRequests", "Request", new { name = User.Identity.Name })');
+        }
+        function GetOrdersInWork() {
+            $('#requests').load('@Html.Raw(Url.Action("_GetOrdersInWork", "Order", new { Role = @ViewBag.Current_role, State = "В работе" }))');
+
+        }
+        function GetCompletedTasks() {
+            $('#requests').load('@Html.Raw(Url.Action("_GetOrdersInWork", "Order", new { Role = @ViewBag.Current_role, State = "Выполнен" }))');
+        }
+
+    </script>
+</head>
+<body>
+    @{ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationContext()));
+     int p_marks = manager.FindById(User.Identity.GetUserId()).PositiveMarks;
+     int n_marks = manager.FindById(User.Identity.GetUserId()).NeutralMarks;
+     int o_marks = manager.FindById(User.Identity.GetUserId()).NegativeMarks;
+    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 title"> FREELANC<span class="glyphicon glyphicon-eur"></span> </div>
+            <div class="col-md-5 buttons" >
+                @if (User.IsInRole("admin"))
+                {
+                    @Html.ActionLink("Администратор", "Index", "Admin");
+                }
+                @Html.ActionLink("Заказчик", "GiveOrder", "Order")
+
+                @Html.ActionLink("Исполнитель", "GetOrders", "Order")
+
+                
+
+        </div>
+                <div class="col-md-offset-7 col-md-3">
+                    <span style="color:white; position: absolute; bottom:7px;">
+                        Пользователь :<a style="color:white; text-decoration:underline" href="#">@User.Identity.Name </a>  <b style="color:green">@p_marks</b> / <b style="color:white">@n_marks</b> / <b style="color:red">@o_marks</b>
+                    </span>
+                </div>
+                    <div class="col-md-offset-11 cold-md-1 buttons">
+                        @Html.ActionLink("Выход", "Logout", "Account")
+                    </div>
+
+                </div>
+                    <div class="row ">
+                        
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-3 menu">
+                                    @{ Html.RenderAction("_Nav", "Menu"); }
+                                </div>
+                                <div class="content col-md-9">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        </div>
+                        <div class="messages col-md-3">
+                            <br />
+                            <h4><span>  Личные сообщения</span></h4>
+                            <br />
+                            <div class="box">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Посмотреть<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        @if (ViewBag.Current_role == "Customer")
+                            {
+                                            <li>
+                                                <a href="#" onclick="FillRequests()">Заявки</a>
+                                            </li>
+                            }
+                            else if (ViewBag.Current_role == "Executer")
+                            {
+                                <li>
+                                    <a href="#" onclick="GetOwnRequests()">Заявки</a>
+                                </li>
+                            }
+                                        @if (ViewBag.Current_role != null)
+                            {
+                                            <li><a href="#" onclick="GetOrdersInWork()">В работе</a></li>
+                                            <li><a href="#" onclick="GetCompletedTasks()">Ожидают проверки</a></li>
+                            }
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <br />
+                            <div id="requests"> </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row ">
+                        <div class="footer">
+                            <span class="footer_name"> Матросов Н.С.&#169 </span>
+                        </div>
+                    </div>
+                </div>
+            </body>
+</html>

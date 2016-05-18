@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Профиль";
+}
+
+<script> 
+    window.onload = function my()
+    {
+        $("#prInfo").click();
+    }
+    function ViewUserInfo() {
+        $('#rating_info').html('');
+        $('#userprofile').load('@Url.Action("_UserInfo", "Profile")');
+    }
+    function ViewPortfolio() {
+        $('#rating_info').html('');
+        $('#userprofile').load('@Url.Action("_Portfolio", "Profile")');
+    }
+    function ViewRatingInfo() {
+        $('#userprofile').html('');
+        $('#rating_info').load('@Url.Action("_RatingInfo", "Profile")');
+       
+    }
+</script>
+<br />
+<h4> Добро пожаловать, @User.Identity.Name </h4>
+<br />
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    <li class="active"><a href="#" id="prInfo" onclick="ViewUserInfo()">Личная информация</a></li>
+    <li><a href="#" onclick="ViewPortfolio()">Портфолио   </a></li>
+    <li><a href="#" onclick="ViewRatingInfo()">Рейтинг и отзывы</a></li>
+</ul>
+<br /><br />
+<div id="userprofile"> </div>
+<div id="rating_info" style="overflow-y:scroll"> </div>

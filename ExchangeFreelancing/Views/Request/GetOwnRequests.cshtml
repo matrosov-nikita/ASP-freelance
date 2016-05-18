@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ExchangeFreelancing.Domain.Entities.Order>
+
+@foreach (var item in Model)
+{
+    <div class="message_box">
+        <a style="font-size: smaller; padding:10px; font-weight:bold" class="link">
+            @item.Header
+          <span class="convers glyphicon glyphicon-envelope" data-toggle="tooltip" title="" style="font-size:15px; margin-left:10px; color:red; cursor:pointer" onclick="ShowChat('@Url.Action("GetMessages","Message")', this)"></span>
+        </a>
+        @{Html.RenderPartial("_Chat", item.Id);}
+    </div>
+}

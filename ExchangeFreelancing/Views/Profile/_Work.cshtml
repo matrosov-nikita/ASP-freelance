@@ -1,0 +1,19 @@
+﻿@model string
+@{ List<string> extensions = new List<string> { ".JPG", ".PNG", ".GIF", ".TIFF", ".BMP" }; }
+
+
+@foreach (var item2 in Directory.GetFiles(Model))
+{
+    if (extensions.Contains(Path.GetExtension(item2).ToUpper()))
+     
+    {
+        <div class="col-md-4">
+            <div class="thumbnail" style="height:200px; width:180px" onclick="location.href='@Url.Action("Download", "Profile", new {folder=Model })'">
+                <img style="height:160px; width:160px" src='@Url.Content("~/App_Images/UserFiles/" + ViewBag.UserId + "//" + Model.Split('\\').Last() + "//" + Path.GetFileName(item2))'>
+                <div class="caption">
+                    <p>@Model.Split('\\').Last() <p>
+                </div>
+            </div>
+        </div>
+    }
+}

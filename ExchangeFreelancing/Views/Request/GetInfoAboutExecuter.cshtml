@@ -1,0 +1,45 @@
+﻿@model ExchangeFreelancing.Models.ApplicationUser
+@{
+    ViewBag.Title = "Информация о пользователе";
+}
+<style>
+
+a.spoiler.collapsed:after {
+    content: "[+]";
+}
+    a.spoiler:after {
+        content: "[-]";
+    }
+ #info {
+     margin-top:20px;
+       }
+ .mainInfo {
+     margin-top:50px;
+ }
+
+</style>
+
+<script>
+    $(document).ready(function () {
+        $("form input").attr("disabled", true);
+        $("textarea").attr("disabled", true);
+        $("#btn_add").attr("disabled", true);
+    })
+</script>
+<div id="info">
+    <a href="#spoiler1" data-toggle="collapse" class="btn btn-primary spoiler collapsed"> Общая информация </a>
+    <a href="#spoiler2" data-toggle="collapse" class="btn btn-primary spoiler collapsed"> Портфолио </a>
+    <a href="#spoiler3" data-toggle="collapse" class="btn btn-primary spoiler collapsed"> Рейтинг и комментарии </a>
+</div>
+<div class="mainInfo">
+    <div class="collapse" id="spoiler1">
+        @{ Html.RenderAction("_UserInfo", "Profile", new { Model.Id });}
+    </div>
+    <div class="collapse" id="spoiler2">
+        @{ Html.RenderAction("_Portfolio", "Profile", new { Model.Id });}
+    </div>
+    <div class="collapse" style="overflow-y:scroll" id="spoiler3">
+        @{ Html.RenderAction("_RatingInfo", "Profile", new { Model.Id });}
+    </div>
+
+</div>

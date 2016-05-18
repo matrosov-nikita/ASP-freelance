@@ -1,0 +1,63 @@
+﻿.order
+{
+    border:1px solid black;
+    border-radius:10px;
+    margin-bottom:30px;
+   
+}
+.order_header>span:first-child {
+    padding-left:30px;
+    font-weight:bold;
+}
+
+.price {
+    color: forestgreen;
+     text-transform:lowercase;
+     font-weight:bold;
+}
+.order_header {
+    padding:0;
+    margin:0;
+    background-color:lightgray;
+     border-radius:10px;
+     padding-bottom:5px;
+     position:relative;
+     
+}
+
+.order_header:hover{
+    cursor: pointer;
+}
+
+.order .description {
+    border:2px solid gray;
+    margin:5px;
+    max-height:140px;
+    font-family: 'Trebuchet MS';
+    overflow:scroll;
+    
+}
+.order .customer 
+{
+     background-color:#eee;
+     border-radius:10px;
+}
+span.category {
+    padding-left:10px;
+}
+span.time {
+    color: #999;
+    padding-left:10px;
+}
+a.glyphicon.glyphicon-ok-circle
+{
+    font-size:23px;
+    margin-left:30px;
+    position:absolute;
+    right:5px;
+    color: green;
+    text-decoration:none;
+}
+a.glyphicon.glyphicon-ok-circle:hover {
+    font-size:30px;
+}

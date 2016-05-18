@@ -1,0 +1,39 @@
+﻿@model ExchangeFreelancing.Domain.Entities.Order
+@using ExchangeFreelancing.Domain.Concrete
+@using System.IO
+
+<div class="order">
+    <div class="order_header">
+        <span>@Model.Header </span>    <span class="price">    @Model.Price</span>
+        @Html.ActionLink(" ", "AddRequest", "Request", new
+   {
+       order_id = @Model.Id
+   },
+   new { @class = "glyphicon glyphicon-ok-circle" })
+    </div>
+    <div class="order-body" style="display:none">
+        <span class="category"> Категория: @Model.Category</span>
+        <div class="description">
+
+            <pre> @Model.Description</pre>
+        </div>
+        <div style="padding-left:10px">
+            @if (new EFFileRepository().Files.Where(x => x.order_number == Model.Id.ToString()).Count() > 0)
+            {
+                @:Прикрепленные файлы: <br />
+        foreach (var item in (new EFFileRepository().Files.Where(x => x.order_number == Model.Id.ToString())))
+        {
+            if (item.path.IndexOf(@"\App_Data\CustomFiles\")!=-1)
+            { 
+            @Html.ActionLink(Path.GetFileName(item.path), "Download", "Order", new { fileName = Path.GetFileName(item.path), order = @Model.Id, directory = "CustomFiles" },null);
+                @: <br />
+            }
+        }
+            }
+        </div>
+        <span class="time"> Срок сдачи: </span> @Model.ExecutingTime
+        <div class="customer">
+            <span style="padding-left:10px">@Model.Custom_name </span>
+        </div>
+    </div>
+</div>

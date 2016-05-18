@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ExchangeFreelancing.Domain.Entities.Claim>
+
+    <h4>Заказы, отправленные в арбитраж </h4>
+
+<script>
+
+    $(document).ready(function () {
+        $(".order-body").toggle(500);
+        $(".glyphicon").css("display", "none");
+        $(".item_order").click(function () {
+            var number = $(this).text();
+            $.ajax({
+                url: "/Admin/GetArbitrationInfo",
+                type: "post",
+                data: { order: number },
+                success: function (response) {
+                    $("#content").append(response);
+                }
+            })
+        })
+       
+    })
+</script>
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        Заказы
+        <span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        @foreach (var item in Model.Select(x=>x.order))
+        {
+            <li role="presentation"><a class="item_order" role="menuitem" tabindex="-1" href="#">@item</a></li>
+        }
+    </ul>
+</div>
+<div id="content"></div>

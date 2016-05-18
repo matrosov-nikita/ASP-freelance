@@ -1,0 +1,33 @@
+﻿@model System.Collections.Generic.Dictionary<int, List<ApplicationUser>>
+@using ExchangeFreelancing.Models
+@using ExchangeFreelancing.Domain.Entities
+@using ExchangeFreelancing.Domain.Concrete
+@using System.Linq
+
+
+@foreach (int item in @Model.Keys)
+{
+    <div class="message_box">
+        <a style="font-size: smaller; padding:10px; font-weight:bold" >
+
+            @(new EFOrderRepository().Orders.FirstOrDefault(x => x.Id == item).Header)
+            <span class="convers glyphicon glyphicon-envelope" data-toggle="tooltip" title="" style="font-size:15px; margin-left:10px; color:red; cursor:pointer" onclick="ShowChat('@Url.Action("GetMessages","Message")', this)"></span>
+        </a>
+
+        <ul style="list-style:none">
+
+            @foreach (var element in @Model[item])
+            {
+                <li>
+                   
+                    <span onclick="location.href='@Url.Action("GetInfoAboutExecuter","Request",new {user_id=element.Id})'"> @element.UserName</span>                    
+                    @Html.ActionLink(" ", "ConfirmRequest", "Request", new { order_id = item, ex_id = element.Id },
+                    new { @class = "glyphicon glyphicon-thumbs-up" })
+                    @Html.ActionLink(" ", "RefuseRequest", "Request", new { order_id = item, ex_id = element.Id },
+                    new { @class = "glyphicon glyphicon-thumbs-down" })
+                </li>
+            }
+        </ul>     
+            @{Html.RenderPartial("_Chat",item);}   
+    </div>
+}

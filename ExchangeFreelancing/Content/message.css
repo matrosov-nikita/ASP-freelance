@@ -1,0 +1,41 @@
+﻿
+
+        .message_box a {
+            background-color: #d0e2ce;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 4px;
+            box-shadow: 0 0 10px gray;
+            display: block;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+            color:black;
+            text-decoration:none;
+        }
+
+        .message_box li {
+            background-color: #fcfce0;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin-top: -1px;
+            cursor: pointer;
+            box-shadow: 0 0 10px gray;
+            position: relative;
+            
+          
+        }
+
+            .message_box li a {
+                background-color: white;
+            }
+
+                .message_box li a.glyphicon-thumbs-up {
+                    position: absolute;
+                    right: 35px;
+                }
+
+                .message_box li a.glyphicon-thumbs-down {
+                    position: absolute;
+                    right: 5px;
+                }

@@ -1,0 +1,15 @@
+﻿
+
+.buttons a {
+    text-decoration:none;
+    display:inline-block;
+    background-color:#222;
+    color:white;
+    margin-top: 40px;
+    padding:7px;
+}
+.buttons a:hover 
+{
+    background-color:#555;
+    box-shadow:0 0 10px white;
+}

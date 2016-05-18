@@ -1,0 +1,8 @@
+﻿@model IEnumerable< ExchangeFreelancing.Domain.Entities.Message>
+
+@foreach (var item in Model)
+{
+    <div>
+        @{ Html.RenderPartial("_Message", item);}
+    </div>
+}

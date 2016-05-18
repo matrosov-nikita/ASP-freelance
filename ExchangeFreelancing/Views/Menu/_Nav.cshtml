@@ -1,0 +1,16 @@
+﻿
+@using ExchangeFreelancing.Domain.Entities;
+@model IQueryable<Category>
+           @{ 
+               Layout = null;
+           }
+@Html.ActionLink("Home", "List", "Home")
+@foreach (var link in Model)
+{
+    @Html.RouteLink(link.Name, 
+        new {
+            controller = "Order",
+            action = "GetOrders",
+            category = link.Name
+        })          
+}

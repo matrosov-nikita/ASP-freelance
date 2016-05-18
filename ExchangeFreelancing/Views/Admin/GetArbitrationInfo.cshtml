@@ -1,0 +1,91 @@
+﻿@model System.Collections.Generic.List<object>
+@using ExchangeFreelancing.Domain.Entities
+
+<script>
+    $(".order-body").toggle(500);
+    $(".glyphicon").css("display", "none");
+
+    $(".res").click(function () {
+        $("#res_message").toggle(500);
+
+    })
+</script>
+<style>
+    .cont {
+        width: 1000px;
+        margin: auto;
+    }
+</style>
+<div class="cont">
+    <h4> Задание и его обсуждение </h4>
+    <div class="col-md-5" style="margin-top:10px; float:left;">
+        @{Html.RenderPartial("~/Views/Order/_Order.cshtml", Model.ElementAt(0));}
+    </div>
+    <div style="float:left; margin-left:20px; border:1px solid grey; height:300px; overflow-y:scroll;  width:350px;">
+        @foreach (Message item in (IEnumerable<Message>)Model.ElementAt(1))
+        {
+            <div style="overflow-x:hidden">
+                @{Html.RenderPartial("~/Views/Message/_Message.cshtml", item);}
+            </div>
+        }
+    </div>
+    <h4 style="clear:both"> Результат работы исполнителя </h4>
+    <div class="col-md-12" style="background-color:rgba(197, 254, 192, 0.65); padding:10px; border-radius:5px; margin-bottom:15px;">
+        <h5> <b> Сообщение</b>  </h5>
+        @{
+            var message = ((Order)Model.ElementAt(0)).Message;
+        }
+        @if (message == null)
+        {
+            @:Сообщение отсутствует
+    }
+        else
+        {
+            @message
+        }
+    </div>
+    <div class="col-md-12" style="background-color:#fff8d3; padding:10px; border-radius:5px; margin-bottom:10px;">
+        <h5> <b>Прикрепленные файлы</b> </h5>
+
+        @foreach (var item in Model.ElementAt(2) as IEnumerable<ExchangeFreelancing.Domain.Entities.File>)
+        {
+            @Html.ActionLink(Path.GetFileName(item.path), "Download", "Order", new { fileName = Path.GetFileName(item.path), order = (Model.ElementAt(0) as Order).Id, directory = "ExecuterFiles" }, null);
+        }
+    </div>
+    @{
+        var claim = ((Claim)Model.ElementAt(3)).Message;
+    }
+    <h4> Претензия заказчика </h4>
+    <div class="alert alert-danger">
+        @if (claim == null)
+        {
+            @:Заказчик не написал претензии по заданию
+ }
+        else
+        {
+            @claim
+        }
+    </div>
+    <button class="res btn btn-success"> Отправить решение </button>
+
+
+    @using (Html.BeginForm("ConfirmWork", "Admin", new { order_id = (Model.ElementAt(0) as Order).Id, Executer = (Model.ElementAt(0) as Order).Executer_Id}))
+    {
+        <div id="res_message" style="display:none">
+            <p> В чью пользу?</p>
+            <div>
+                <input type="radio" name="fromAdmin" value="false"> В пользу исполнителя
+                <input type="radio" name="fromAdmin" value="true"> В пользу заказчика
+
+            </div>
+            <textarea name="message" class="col-md-12" style="margin:10px 0" rows="4" placeholder="Решение администратора"></textarea>
+            <div>
+                <p>Выберете оценку</p>
+                <input type="radio" name="Mark" value="Положительная"> Положительная
+                <input type="radio" name="Mark" value="Нейтральная"> Нейтральная
+                <input type="radio" name="Mark" vlaue="Отрицательная"> Отрицательная<br /><br />
+                <input type="submit" class="btn btn-primary" value="Отправить">
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,11 @@
+﻿@model System.Int32
+
+<div class="chat" style="border:1px solid rgb(128, 128, 128); display:none; margin-bottom:10px;">
+    <textarea class="mes"  style="height:80px; width:100%" placeholder="Обсудите задание с заказчиком"></textarea>
+    
+    <span class="glyphicon glyphicon-refresh" style="font-size:20px; cursor:pointer; float:left;" onclick="Refresh(this)"></span>
+
+    <button class=" btn btn-sm btn-success col-md-offset-7"  onclick="Subm('@Url.Action("AddMessage","Message")','@User.Identity.Name',this)"> Отправить </button>
+    <input class="hid_field" type="hidden" value="@Model" />
+    <div class="mesgs" style="overflow: scroll; overflow-x: hidden; max-height:180px; min-height:180px;"> </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@model ExchangeFreelancing.Domain.Entities.Order
+@using ExchangeFreelancing.Domain.Concrete
+@{
+    ViewBag.Title = "Разместить заказ";
+}
+
+<script>
+    //  window.onload() = function()
+    //{
+    // document.getElementsByTagName("price").=function()
+    function onChangeRange(val) {
+        document.getElementById("out").value = val;
+    }
+    //}
+</script>
+<style>
+    .form {
+        width: 500px;
+        margin: auto;
+    }
+</style>
+
+<h4>Разместить заказ</h4>
+<em>Заполните необходимые поля</em><br />
+<br />
+@using (Html.BeginForm("GiveOrder", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Category, new { @class = "col-md-3 control-label", id = "lblusername" })
+        <div class="col-md-9">
+            @Html.DropDownListFor(x => x.Category, new SelectList(new EFCategoryRepository().Categories, "Name", "Name"), new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Header, new { @class = "col-md-3 control-label" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(x => x.Header, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Description, new { @class = "col-md-3 control-label" })
+        <div class="col-md-9">
+            @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+
+        @Html.LabelFor(x => x.ExecutingTime, new { @class = "col-md-3 control-label" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(x => x.ExecutingTime, new { @class = " form-control", type="datetime-local" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Price, new { @class = "col-md-3 control-label" })
+        <div class="col-md-9">
+            @Html.TextBoxFor(x => x.Price, new { onchange = "onChangeRange(this.value)", type = "range", min = "1", max = "20000", step = "10", name = "price", id = "Prange", value = 0, @class = " form-control" })
+        </div>
+        <div class="col-md-offset-10 col-md-2">
+            <input class="form-control" type="text" id="out" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label"> Загрузка файлов </label>
+        <div class="col-md-9">
+            <input type="file" class="form-control" multiple="multiple" name="collection">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-6">
+            <input class="btn btn-default" value="Подтвердить" type="submit" />
+        </div>
+    </div>
+
+}

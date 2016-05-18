@@ -1,0 +1,74 @@
+﻿@model ExchangeFreelancing.Domain.Entities.Order
+@using ExchangeFreelancing.Domain.Concrete
+@using System.IO
+@{
+    ViewBag.Title = "Просмотр результатов работы";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#arbitration").click(function () {
+            if ($(".commentBlock").css("display") == "none") $("#claim").toggle(500);
+        })
+        $("#confirm").click(function () {
+            if ($("#claim").css("display") == "none") $(".commentBlock").toggle(500);
+        })
+        $(".order-body").toggle(500);
+        $(".glyphicon").css("display", "none");
+    })
+
+</script>
+<h4>Выполненная работа</h4>
+<h5>Задание</h5>
+<div class="col-md-12" style="border:none">
+    @{ Html.RenderPartial("_Order", @Model);}
+</div>
+<br />
+
+<div class="col-md-12" style="background-color:rgba(197, 254, 192, 0.65); padding:10px; border-radius:5px; margin-bottom:15px;">
+    <h5> <b> Сообщение</b>  </h5>
+    @if (Model.Message == "")
+    {
+        @:Сообщение отсутствует
+    }
+    else
+    {
+        @Model.Message
+    }
+</div>
+
+<div class="col-md-12" style="background-color:#fff8d3; padding:10px; border-radius:5px; margin-bottom:10px;">
+    <h5> <b>Прикрепленные файлы</b> </h5>
+    @if (new EFFileRepository().Files.Where(x => x.order_number == Model.Id.ToString()).Count() > 0)
+    {
+        foreach (var item in (new EFFileRepository().Files.Where(x => x.order_number == Model.Id.ToString())))
+        {
+            if (item.path.IndexOf(@"\App_Data\ExecuterFiles\") != -1)
+            {
+                @Html.ActionLink(Path.GetFileName(item.path), "Download", "Order", new { fileName = Path.GetFileName(item.path), order = @Model.Id, directory = "ExecuterFiles" }, null);
+        @: <br />
+            }
+        }
+    }
+</div>
+<a id="confirm" class="col-md-6 btn btn-success"> Подтвердить </a>
+
+<a id="arbitration" class="col-md-6 btn btn-danger"> Арбитраж </a>
+@using (Html.BeginForm("RefuseWork", "Order", new { order_id = Model.Id }))
+{
+    <div id="claim" style="display:none">
+        <textarea name="message" class="col-md-12" style="margin:10px 0" rows="4" placeholder="Напишите жалобы и замечания по работе"></textarea>
+        <input type="submit" class="btn btn-primary" value="Отправить">
+    </div>
+}
+@using (Html.BeginForm("ConfirmWork", "Order", new { order_id = Model.Id, Executer = Model.Executer_Id}))
+{
+    <div style="display:none" class="commentBlock">
+        <textarea name="message" class="col-md-12" rows="4" placeholder="Напишите комментарий о выполненной работе" style="margin-top:10px;"></textarea>
+        <p>Выберете оценку</p>
+        <input type="radio" name="Mark" value="Положительная"> Положительная
+        <input type="radio" name="Mark" value="Нейтральная"> Нейтральная
+        <input type="radio" name="Mark" vlaue="Отрицательная"> Отрицательная<br /><br />
+        <input type="submit" value="Отправить" class="btn btn-primary" />
+    </div>
+}
